@@ -1,0 +1,19 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body > div {
+  border: 1px solid blue;
+  display: grid;
+  grid-template-rows: 150px 150px 150px;
+  grid-template-columns: 150px 150px 150px;
+  padding: 20px;
+  font-size: 75px;
+}
+
+.gameSquare {
+ border: 1px solid black;
+ height: 150px;
+ width: 150px;
+}
