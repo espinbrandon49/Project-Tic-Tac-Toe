@@ -58,7 +58,6 @@ const game = (() => {
         squareB = squareB
         squareC = squareC
         let score = 0
-
         squareA.addEventListener('click', () => {
           if (squareA.getAttribute('data-value') != 0) {
             score += parseInt(squareA.getAttribute('value'))
@@ -80,13 +79,18 @@ const game = (() => {
           console.log(score)
           squareC.setAttribute('data-value', 0)
         })
-        return { squareA, squareB, squareC }
+        
+        return { score, squareA, squareB, squareC }
       }
+
       const score1 = scores(square1, square2, square3)
       const score2 = scores(square4, square5, square6)
       const score3 = scores(square7, square8, square9)
       const score4 = scores(square1, square5, square9)
       const score5 = scores(square3, square5, square9)
+      const score6 = scores(square1, square4, square7)
+      const score7 = scores(square2, square5, square8)
+      const score8 = scores(square3, square6, square9)
 
     }
     gameOver()
