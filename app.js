@@ -43,28 +43,49 @@ const game = (() => {
     })()
 
     const gameOver = () => {
+      const square1 = document.getElementById(1)
+      const square2 = document.getElementById(2)
+      const square3 = document.getElementById(3)
+      const square4 = document.getElementById(4)
+      const square5 = document.getElementById(5)
+      const square6 = document.getElementById(6)
+      const square7 = document.getElementById(7)
+      const square8 = document.getElementById(8)
+      const square9 = document.getElementById(9)
 
-      const getScore = () => {
-        let square1 = document.getElementById(1)
+      function score1() {
         let score1 = 0
-        const addScore = function () {
-          score1 += parseInt(square1.getAttribute('value'))
+        square1.addEventListener('click', () => {
+          if (square1.getAttribute('data-value') != 0) {
+            score1 += parseInt(square1.getAttribute('value'))
+          }
+          square1.setAttribute('data-value', 0)
           console.log(score1)
-        }
-        square1.addEventListener('click', addScore)
+        })
+        square2.addEventListener('click', () => {
+          if (square2.getAttribute('data-value') != 0) {
+            score1 += parseInt(square2.getAttribute('value'))
+          }
+          square2.setAttribute('data-value', 0)
+          console.log(score1)
+        })
+        square3.addEventListener('click', () => {
+          if (square3.getAttribute('data-value') != 0) {
+            score1 += parseInt(square3.getAttribute('value'))
+          }
+          square3.setAttribute('data-value', 0)
+          console.log(score1)
+        })
+        return score1
       }
-getScore()
-
-
-      document.getElementById(2)
-      document.getElementById(3)
-      let score2 = 0
-      let score3 = 0
-      let score4 = 0
-      let score5 = 0
+  console.log(score1())
     }
-
     gameOver()
+
+
+
+
+
 
   })()
 
@@ -77,8 +98,11 @@ getScore()
 122 = 5
 222 = 6*/
 
+/*
 
-
-
-
+      let score2 = 0
+      let score3 = 0
+      let score4 = 0
+      let score5 = 0
+*/
 
