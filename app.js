@@ -52,40 +52,44 @@ const game = (() => {
       const square7 = document.getElementById(7)
       const square8 = document.getElementById(8)
       const square9 = document.getElementById(9)
+      
+      const scores = (squareA, squareB, squareC) => {
+        squareA = squareA
+        squareB = squareB
+        squareC = squareC
+        let score = 0
 
-      function score1() {
-        let score1 = 0
-        square1.addEventListener('click', () => {
-          if (square1.getAttribute('data-value') != 0) {
-            score1 += parseInt(square1.getAttribute('value'))
+        squareA.addEventListener('click', () => {
+          if (squareA.getAttribute('data-value') != 0) {
+            score += parseInt(squareA.getAttribute('value'))
           }
-          square1.setAttribute('data-value', 0)
-          console.log(score1)
+          console.log(score)
+          squareA.setAttribute('data-value', 0)
         })
-        square2.addEventListener('click', () => {
-          if (square2.getAttribute('data-value') != 0) {
-            score1 += parseInt(square2.getAttribute('value'))
+        squareB.addEventListener('click', () => {
+          if (squareB.getAttribute('data-value') != 0) {
+            score += parseInt(squareB.getAttribute('value'))
           }
-          square2.setAttribute('data-value', 0)
-          console.log(score1)
+          console.log(score)
+          squareB.setAttribute('data-value', 0)
         })
-        square3.addEventListener('click', () => {
-          if (square3.getAttribute('data-value') != 0) {
-            score1 += parseInt(square3.getAttribute('value'))
+        squareC.addEventListener('click', () => {
+          if (squareC.getAttribute('data-value') != 0) {
+            score += parseInt(squareC.getAttribute('value'))
           }
-          square3.setAttribute('data-value', 0)
-          console.log(score1)
+          console.log(score)
+          squareC.setAttribute('data-value', 0)
         })
-        return score1
+        return { squareA, squareB, squareC }
       }
-  console.log(score1())
+      const score1 = scores(square1, square2, square3)
+      const score2 = scores(square4, square5, square6)
+      const score3 = scores(square7, square8, square9)
+      const score4 = scores(square1, square5, square9)
+      const score5 = scores(square3, square5, square9)
+
     }
     gameOver()
-
-
-
-
-
 
   })()
 
