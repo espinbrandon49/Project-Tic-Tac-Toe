@@ -22,50 +22,70 @@ const game = (() => {
     const player1 = player(1, 'Player 1', 'X')
     const player2 = player(2, 'player2', 'O')
 
-    const turn = (() => {
+    const play = (() => {
       let count = 0
-      const square1 = document.getElementById(1)
-      const square2 = document.getElementById(2)
-      const square3 = document.getElementById(3)
-      const square4 = document.getElementById(4)
-      const square5 = document.getElementById(5)
-      const square6 = document.getElementById(6)
-      const square7 = document.getElementById(7)
-      const square8 = document.getElementById(8)
-      const square9 = document.getElementById(9)
-
       for (let i = 1; i <= 9; i++) {
         let gameSpace = document.getElementById(i)
         const playerMove = () => {
           if (gameSpace.textContent == '') {
             if (count % 2 == 0) {
               gameSpace.textContent = player1.marker
-              gameSpace.setAttribute('value', 1)  
+              gameSpace.setAttribute('value', 1)
             } else {
               gameSpace.textContent = player2.marker
               gameSpace.setAttribute('value', 2)
             }
-
             count++
+          }
+          const scoring = (() => {
             const lineScore = (squareA, squareB, squareC) => {
               squareA = parseInt(squareA.getAttribute('value'))
               squareB = parseInt(squareB.getAttribute('value'))
               squareC = parseInt(squareC.getAttribute('value'))
               const score = () => squareA + squareB + squareC
-              return {score, squareA, squareB, squareC}
+              return { score, squareA, squareB, squareC }
             }
 
-            const lineScore1 = lineScore(square1, square2, square3)
-            console.log(lineScore1.score())
-            const lineScore2 = lineScore(square1, square4, square7)
-            console.log(lineScore2.score())
-            console.log(lineScore1)
-            console.log(lineScore2)
-            
-          }
+            const square1 = document.getElementById(1)
+            const square2 = document.getElementById(2)
+            const square3 = document.getElementById(3)
+            const square4 = document.getElementById(4)
+            const square5 = document.getElementById(5)
+            const square6 = document.getElementById(6)
+            const square7 = document.getElementById(7)
+            const square8 = document.getElementById(8)
+            const square9 = document.getElementById(9)
+            /*
+                        const lineScore1 = lineScore(square1, square2, square3)
+                        const lineScore2 = lineScore(square4, square5, square6)
+                        const lineScore3 = lineScore(square7, square8, square9)
+                        const lineScore4 = lineScore(square1, square4, square7)
+                        const lineScore5 = lineScore(square2, square5, square8)
+                        const lineScore6 = lineScore(square3, square6, square9)
+                        const lineScore7 = lineScore(square1, square5, square9)
+                        const lineScore8 = lineScore(square3, square5, square7)
+                        const lineScores = {
+            */
+            const lineScores = [
+              lineScore(square1, square2, square3)
+            ]
+            console.log(lineScores[0].score())
+
+            for(let i = 0; i< lineScores.length; i++) {
+              if (lineScores[i].score() == 3) {
+                console.log('pink')
+              }
+            }
+
+
+
+
+          })()
         }
         gameSpace.addEventListener('click', playerMove)
       }
+
+
     })()
 
 
