@@ -1,13 +1,49 @@
 const game = (() => {
+
+  
   const createGameboard = (() => {
-    const container = document.createElement('div')
-    document.querySelector('body').appendChild(container)
-    for (let i = 1; i <= 9; i++) {
-      const gameDiv = document.createElement('div')
-      gameDiv.classList.add('gameSquare')
-      gameDiv.setAttribute('id', i)
-      container.appendChild(gameDiv)
-    }
+    const body = document.querySelector('body')
+
+    const header = (() => {
+      const title = document.createElement('div')
+      const image = document.createElement('img')
+      const headerText = document.createElement('h1')
+      const X = document.createElement('button')
+      const Y = document.createElement('button')
+      
+      image.setAttribute('src', './odin-lined.png')
+      X.textContent = "X's"
+      Y.textContent = "O's"
+      headerText.textContent = 'Tic Tac Toe'
+      title.appendChild(image)
+      title.appendChild(headerText)
+      title.appendChild(X)
+      title.appendChild(Y)
+      body.appendChild(title)
+    })()
+
+    const createContainer = (() => {
+      const container = document.createElement('div')
+      container.setAttribute('id', 'container')
+      body.appendChild(container)
+      createSquares = (() => {
+        for (let i = 1; i <= 9; i++) {
+          const gameDiv = document.createElement('div')
+          gameDiv.classList.add('gameSquare')
+          gameDiv.setAttribute('id', i)
+          container.appendChild(gameDiv)
+        }
+      })()
+    })()
+    const createRestart = (() => {
+      const restart = document.createElement('button')
+      restart.addEventListener('click', () => location.reload())
+      restart.textContent = 'restart'
+      body.appendChild(restart)
+    })()
+
+
+
   })()
 
   const player = (player, name, marker) => {
@@ -69,19 +105,20 @@ const game = (() => {
                 lineScore(square3, square5, square7)
               ]
 
-              for (let i = 0; i < lineScores.length; i++) {
-                if (lineScores[i].score() == 3 || lineScores[i].score() == 6) {
-                  if (lineScores[i].score() == 3) {
-                    console.log('X wins')
-                  } else {
-                    console.log('Y wins')
+              const endGame = (() => {
+                for (let i = 0; i < lineScores.length; i++) {
+                  const container = document.getElementById('container')
+                  if (lineScores[i].score() == 3 || lineScores[i].score() == 6) {
+                    if (lineScores[i].score() == 3) {
+                      console.log('X wins')
+                      container.style.pointerEvents = 'none'
+                    } else {
+                      console.log('Y wins')
+                      container.style.pointerEvents = 'none'
+                    }
                   }
-                  
                 }
-              }
-
-
-              
+              })()
             })()
           })()
         }
