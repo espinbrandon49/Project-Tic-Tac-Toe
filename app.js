@@ -24,20 +24,30 @@ const game = (() => {
 
     const turn = (() => {
       let count = 0
+      const square1 = document.getElementById(1)
+
+      const square2 = document.getElementById(2)
+
       for (let i = 1; i <= 9; i++) {
         let gameSpace = document.getElementById(i)
         const playerMove = () => {
           if (gameSpace.textContent == '') {
             if (count % 2 == 0) {
               gameSpace.textContent = player1.marker
-              gameSpace.setAttribute('value', 1)
+              gameSpace.setAttribute('value', 1)   
+              console.log(gameSpace.getAttribute('value'))    
             } else {
               gameSpace.textContent = player2.marker
-              gameSpace.setAttribute('value', 2)
+              gameSpace.setAttribute('value', 2)   
+              console.log(gameSpace.getAttribute('value'))  
             }
             count++
+            console.log(parseInt(square1.getAttribute('value')) + parseInt(square2.getAttribute('value'))
+            )
+
           }
         }
+    
         gameSpace.addEventListener('click', playerMove)
       }
     })()
@@ -53,6 +63,21 @@ const game = (() => {
       const square8 = document.getElementById(8)
       const square9 = document.getElementById(9)
       
+    }
+  //  gameOver()
+
+  })()
+
+  return {}
+})()
+
+/** possible combinations 
+111 = 3
+112 = 4
+122 = 5
+222 = 6*/
+
+      /*
       const scores = (squareA, squareB, squareC) => {
         squareA = squareA
         squareB = squareB
@@ -79,8 +104,8 @@ const game = (() => {
           console.log(score)
           squareC.setAttribute('data-value', 0)
         })
-        
-        return { score, squareA, squareB, squareC }
+     
+        return { squareA, squareB, squareC }
       }
 
       const score1 = scores(square1, square2, square3)
@@ -91,26 +116,4 @@ const game = (() => {
       const score6 = scores(square1, square4, square7)
       const score7 = scores(square2, square5, square8)
       const score8 = scores(square3, square6, square9)
-
-    }
-    gameOver()
-
-  })()
-
-  return {}
-})()
-
-/** possible combinations 
-111 = 3
-112 = 4
-122 = 5
-222 = 6*/
-
-/*
-
-      let score2 = 0
-      let score3 = 0
-      let score4 = 0
-      let score5 = 0
 */
-
