@@ -3,77 +3,98 @@ const game = (() => {
   const createGameboard = (() => {
     const body = document.querySelector('body')
 
-    const header = (() => {
+    const createTitle = (() => {
       const title = document.createElement('div')
       title.setAttribute('id', 'title')
-      const image = document.createElement('img')
-      const headerText = document.createElement('h1')
-      image.setAttribute('src', './odin-lined.png')
-      headerText.textContent = 'Tic Tac Toe'
-      title.appendChild(image)
-      title.appendChild(headerText)
       body.appendChild(title)
 
-      const column3 = (() => {
-        const selectMarker = (() => {
-          const markers = document.createElement('fieldset')
-          markers.setAttribute('id', 'markers')
+      const titleCol1 = (() => {
+        const col1Div = document.createElement('div')
+        col1Div.setAttribute('id', 'col1Div')
+        title.appendChild(col1Div)
+
+        const imageF = (() => {
+          const image = document.createElement('img')
+          image.setAttribute('src', './odin-lined.png')
+          col1Div.appendChild(image)
+        })()
+
+        const titleTxtF = (() => {
+          const headerText = document.createElement('h1')
+          headerText.textContent = 'Tic Tac Toe'
+          col1Div.appendChild(headerText)
+        })()
+      })()
+
+      const titleCol2 = (() => {
+        const markers = document.createElement('fieldset')
+        markers.setAttribute('id', 'markers')
+        title.appendChild(markers)
+
+        const legendF = (() => {
           const legend = document.createElement('legend')
           legend.textContent = 'Select marker (X/starts)'
+          markers.appendChild(legend)
+        })()
 
-          const radioX = document.createElement('div')
-          radioX.setAttribute('id', 'radioX')
-          const labelX = document.createElement('label')
-          labelX.setAttribute('for', 'markerX')
-          labelX.textContent = 'X'
-          const X = document.createElement('input')
-          X.setAttribute('type', 'radio')
-          X.setAttribute('id', 'markerX')
-          X.setAttribute('name', 'marker')
-
-          const radioO = document.createElement('div')
-          radioO.setAttribute('id', 'radioO')
-          const labelO = document.createElement('label')
-          labelO.setAttribute('for', 'markerO')
-          labelO.textContent = 'O'
-          const O = document.createElement('input')
-          O.setAttribute('id', 'markerO')
-          O.setAttribute('type', 'radio')
-          O.setAttribute('name', 'marker')
-
-          const blankDiv = document.createElement('div')
-          blankDiv.setAttribute('id', 'blankDiv')
+        const XORf = (() => {
           const XOR = document.createElement('div')
           XOR.setAttribute('id', 'XOR')
-
-          markers.appendChild(legend)
-          markers.appendChild(blankDiv)
           markers.appendChild(XOR)
-          XOR.appendChild(radioX)
-          XOR.appendChild(radioO)
-          radioX.appendChild(X)
-          radioX.appendChild(labelX)
-          radioO.appendChild(O)
-          radioO.appendChild(labelO)
-          title.appendChild(markers)
 
-          const createRestart = (() => {
+          const radioXF = (() => {
+            const radioX = document.createElement('div')
+            radioX.setAttribute('id', 'radioX')
+            const labelX = document.createElement('label')
+            labelX.setAttribute('for', 'markerX')
+            labelX.textContent = 'X'
+            const X = document.createElement('input')
+            X.setAttribute('type', 'radio')
+            X.setAttribute('id', 'markerX')
+            X.setAttribute('name', 'marker')
+            XOR.appendChild(radioX)
+            radioX.appendChild(X)
+            radioX.appendChild(labelX)
+          })()
+
+          const radioOF = (() => {
+            const radioO = document.createElement('div')
+            radioO.setAttribute('id', 'radioO')
+            const labelO = document.createElement('label')
+            labelO.setAttribute('for', 'markerO')
+            labelO.textContent = 'O'
+            const O = document.createElement('input')
+            O.setAttribute('id', 'markerO')
+            O.setAttribute('type', 'radio')
+            O.setAttribute('name', 'marker')
+            XOR.appendChild(radioO)
+            radioO.appendChild(O)
+            radioO.appendChild(labelO)
+          })()
+
+          const restartBF = (() => {
             const restart = document.createElement('button')
             restart.addEventListener('click', () => location.reload())
             restart.textContent = 'restart'
             XOR.appendChild(restart)
           })()
+        })()
 
+        const blankDivF = (() => {
+          const blankDiv = document.createElement('div')
+          blankDiv.setAttribute('id', 'blankDiv')
+          markers.appendChild(blankDiv)
         })()
 
       })()
-
     })()
+
     const createContainer = (() => {
       const container = document.createElement('div')
       container.setAttribute('id', 'container')
       body.appendChild(container)
-      createSquares = (() => {
+
+      const createSquares = (() => {
         for (let i = 1; i <= 9; i++) {
           const gameDiv = document.createElement('div')
           gameDiv.classList.add('gameSquare')
@@ -82,6 +103,7 @@ const game = (() => {
         }
       })()
     })()
+
   })()
 
   const player = (player, name, marker) => {
