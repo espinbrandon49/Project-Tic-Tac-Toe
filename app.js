@@ -33,7 +33,7 @@ const game = (() => {
 
         const legendF = (() => {
           const legend = document.createElement('legend')
-          legend.textContent = 'Select marker (X/starts)'
+          legend.textContent = 'Select marker'
           markers.appendChild(legend)
         })()
 
@@ -52,6 +52,7 @@ const game = (() => {
             X.setAttribute('type', 'radio')
             X.setAttribute('id', 'markerX')
             X.setAttribute('name', 'marker')
+            X.setAttribute('checked', true)
             XOR.appendChild(radioX)
             radioX.appendChild(X)
             radioX.appendChild(labelX)
@@ -75,15 +76,15 @@ const game = (() => {
           const restartBF = (() => {
             const restart = document.createElement('button')
             restart.addEventListener('click', () => location.reload())
-            restart.textContent = 'restart'
+            restart.textContent = 're/Start'
             XOR.appendChild(restart)
           })()
         })()
 
-        const blankDivF = (() => {
-          const blankDiv = document.createElement('div')
-          blankDiv.setAttribute('id', 'blankDiv')
-          markers.appendChild(blankDiv)
+        const msgDivF = (() => {
+          const msgDiv = document.createElement('div')
+          msgDiv.setAttribute('id', 'msgDiv')
+          markers.appendChild(msgDiv)
         })()
 
       })()
@@ -106,32 +107,41 @@ const game = (() => {
 
   })()
 
-  const player = (player, name, marker) => {
-    player = player
-    name = name //player select name input
-    marker = marker // player choose marker
-    return { player, name, marker }
-  }
-
-  const playerAssignments = () => {
-    const assignment = document.createElement('div')
-    const player1A = document.createElement('p')
-    player1A.textContent = 'Player 1'
-    player2A.textContent = 'Player 2'
-    assignment.appendChild(player1A)
-    assignment.appendChild(player2A)
-    markers.appendChild(player1A)
-    X.addEventListener('click', playerAssignments)
-  }
-
   const gamePlay = (() => {
-    const player1 = player(1, 'Player 1', 'X')
-    const player2 = player(2, 'player2', 'O')
+    const player = ((player, name, marker) => {
+      player = player
+      name = name //player select name input
+      marker = marker // player choose marker
+      return { player, name, marker }
+    })
+
+    const playerAssignments = (() => {
+      const msgDiv = document.getElementById('msgDiv')
+      const markerX = document.getElementById('markerX')
+      const markerO = document.getElementById('markerO')
+      const msgDivTxt = document.createElement('p')
+      msgDivTxt.innerHTML = `Player 1 is X <br> Player 2 is O`
+      msgDiv.appendChild(msgDivTxt)
+
+      const playerSelect = () => {
+        if (markerO.checked == true) {
+          msgDivTxt.innerHTML = `Player 1 is O <br> Player 2 is X`
+        } else {
+          msgDivTxt.innerHTML = `Player 1 is X <br> Player 2 is O`
+        }
+      }
+      markerX.addEventListener('click', playerSelect)
+      markerO.addEventListener('click', playerSelect)
+    })()
 
     const play = (() => {
+      const player1 = player(1, 'Player 1', 'X')
+      const player2 = player(2, 'player2', 'O')
+
       let count = 0
       for (let i = 1; i <= 9; i++) {
         let gameSpace = document.getElementById(i)
+        
         const playerMove = () => {
           if (gameSpace.textContent == '') {
             if (count % 2 == 0) {
@@ -144,26 +154,32 @@ const game = (() => {
             count++
           }
 
-          const scoring = (() => {
-            const lineScore = (squareA, squareB, squareC) => {
-              squareA = parseInt(squareA.getAttribute('value'))
-              squareB = parseInt(squareB.getAttribute('value'))
-              squareC = parseInt(squareC.getAttribute('value'))
-              const score = () => squareA + squareB + squareC
-              return { score, squareA, squareB, squareC }
-            }
+          const endGame = (() => {
+            const square1 = document.getElementById(1)
+            const square2 = document.getElementById(2)
+            const square3 = document.getElementById(3)
+            const square4 = document.getElementById(4)
+            const square5 = document.getElementById(5)
+            const square6 = document.getElementById(6)
+            const square7 = document.getElementById(7)
+            const square8 = document.getElementById(8)
+            const square9 = document.getElementById(9)
 
-            const gameOver = (() => {
-              const square1 = document.getElementById(1)
-              const square2 = document.getElementById(2)
-              const square3 = document.getElementById(3)
-              const square4 = document.getElementById(4)
-              const square5 = document.getElementById(5)
-              const square6 = document.getElementById(6)
-              const square7 = document.getElementById(7)
-              const square8 = document.getElementById(8)
-              const square9 = document.getElementById(9)
+            const tieScore = (() => {
+              if (square1.textContent != '' && square2.textContent != '' && square3.textContent != '' && square4.textContent != '' && square5.textContent != '' && square6.textContent != '' && square7.textContent != '' && square8.textContent != '' && square9.textContent != '') {
+                console.log('Tie')
+                container.style.pointerEvents = 'none'
+              }
+            })()
 
+            const winner = (() => {
+              const lineScore = (squareA, squareB, squareC) => {
+                squareA = parseInt(squareA.getAttribute('value'))
+                squareB = parseInt(squareB.getAttribute('value'))
+                squareC = parseInt(squareC.getAttribute('value'))
+                const score = () => squareA + squareB + squareC
+                return { score, squareA, squareB, squareC }
+              }
               const lineScores = [
                 lineScore(square1, square2, square3),
                 lineScore(square1, square2, square3),
@@ -175,8 +191,7 @@ const game = (() => {
                 lineScore(square1, square5, square9),
                 lineScore(square3, square5, square7)
               ]
-
-              const endGame = (() => {
+              const tally = (() => {
                 for (let i = 0; i < lineScores.length; i++) {
                   const container = document.getElementById('container')
                   if (lineScores[i].score() == 3 || lineScores[i].score() == 6) {
@@ -184,17 +199,30 @@ const game = (() => {
                       console.log('X wins')
                       container.style.pointerEvents = 'none'
                     } else {
-                      console.log('Y wins')
+                      console.log('O wins')
                       container.style.pointerEvents = 'none'
                     }
                   }
                 }
               })()
+
+
             })()
           })()
+
         }
         gameSpace.addEventListener('click', playerMove)
       }
     })()
+
+
   })()
 })()
+
+
+//the end game will have a msg pop up under the assignment declarations  to declare a winner in blankDiv
+//either PLAYER 1 WINS or PLAYER 2 WINS or HELLO WORLD (com wins)
+//clicking in the containerDiv will close the winnerDiv
+//must press restart to play another game
+
+
