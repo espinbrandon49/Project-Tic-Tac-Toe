@@ -38,10 +38,10 @@ const game = (() => {
         })()
 
         const XORf = (() => {
-          const XOR = document.createElement('div')
+          const XOR = document.createElement('form')
           XOR.setAttribute('id', 'XOR')
           markers.appendChild(XOR)
-
+         
           const radioXF = (() => {
             const radioX = document.createElement('div')
             radioX.setAttribute('id', 'radioX')
@@ -49,10 +49,10 @@ const game = (() => {
             labelX.setAttribute('for', 'markerX')
             labelX.textContent = 'X'
             const X = document.createElement('input')
+            X.setAttribute('required', '')
             X.setAttribute('type', 'radio')
             X.setAttribute('id', 'markerX')
             X.setAttribute('name', 'marker')
-            X.setAttribute('checked', true)
             XOR.appendChild(radioX)
             radioX.appendChild(X)
             radioX.appendChild(labelX)
@@ -75,15 +75,27 @@ const game = (() => {
 
           const restartBF = (() => {
             const restart = document.createElement('button')
-            restart.addEventListener('click', () => location.reload())
+            restart.setAttribute('type', 'submit')
             restart.textContent = 're/Start'
             XOR.appendChild(restart)
+            restart.addEventListener('click', () => gamePlay)
+
+
           })()
         })()
 
         const msgDivF = (() => {
           const msgDiv = document.createElement('div')
+          const msgDivTxt = document.createElement('p')
+          msgDiv.appendChild(msgDivTxt)
           msgDiv.setAttribute('id', 'msgDiv')
+          msgDiv.textContent = ''
+
+          const winnerDiv = document.createElement('div')
+          winnerDiv.textContent = ''
+          winnerDiv.setAttribute('id', 'winnerDiv')
+
+          msgDiv.appendChild(winnerDiv)
           markers.appendChild(msgDiv)
         })()
 
@@ -108,47 +120,44 @@ const game = (() => {
   })()
 
   const gamePlay = (() => {
-    const player = ((player, name, marker) => {
-      player = player
-      name = name //player select name input
-      marker = marker // player choose marker
-      return { player, name, marker }
-    })
-
-    const playerAssignments = (() => {
+    const playerSelect = (() => {
       const msgDiv = document.getElementById('msgDiv')
       const markerX = document.getElementById('markerX')
       const markerO = document.getElementById('markerO')
-      const msgDivTxt = document.createElement('p')
-      msgDivTxt.innerHTML = `Player 1 is X <br> Player 2 is O`
-      msgDiv.appendChild(msgDivTxt)
-
       const playerSelect = () => {
         if (markerO.checked == true) {
-          msgDivTxt.innerHTML = `Player 1 is O <br> Player 2 is X`
+          'O'
+          msgDiv.innerHTML = `Player 1 is O <br> Player 2 is X`
+
         } else {
-          msgDivTxt.innerHTML = `Player 1 is X <br> Player 2 is O`
+          'X'
+          msgDiv.innerHTML = `Player 1 is X <br> Player 2 is O`
         }
       }
       markerX.addEventListener('click', playerSelect)
       markerO.addEventListener('click', playerSelect)
+
+      const player = (player, name, marker) => {
+        player = player
+        name = name //player select name input
+        marker = marker // player choose marker
+        return { player, name, marker }
+      }
+      const player1 = player(1, 'Player 1', 'X')
+      const player2 = player(2, 'player2', 'O')
     })()
 
     const play = (() => {
-      const player1 = player(1, 'Player 1', 'X')
-      const player2 = player(2, 'player2', 'O')
-
       let count = 0
       for (let i = 1; i <= 9; i++) {
         let gameSpace = document.getElementById(i)
-        
         const playerMove = () => {
           if (gameSpace.textContent == '') {
             if (count % 2 == 0) {
-              gameSpace.textContent = player1.marker
+              gameSpace.textContent = 'X'
               gameSpace.setAttribute('value', 1)
             } else {
-              gameSpace.textContent = player2.marker
+              gameSpace.textContent = 'O'
               gameSpace.setAttribute('value', 2)
             }
             count++
@@ -167,7 +176,7 @@ const game = (() => {
 
             const tieScore = (() => {
               if (square1.textContent != '' && square2.textContent != '' && square3.textContent != '' && square4.textContent != '' && square5.textContent != '' && square6.textContent != '' && square7.textContent != '' && square8.textContent != '' && square9.textContent != '') {
-                console.log('Tie')
+                winnerDiv.textContent = 'TIE'
                 container.style.pointerEvents = 'none'
               }
             })()
@@ -196,26 +205,23 @@ const game = (() => {
                   const container = document.getElementById('container')
                   if (lineScores[i].score() == 3 || lineScores[i].score() == 6) {
                     if (lineScores[i].score() == 3) {
-                      console.log('X wins')
+                      winnerDiv.textContent = 'X WINS '
                       container.style.pointerEvents = 'none'
                     } else {
-                      console.log('O wins')
+                      winnerDiv.textContent = 'O WINS'
                       container.style.pointerEvents = 'none'
                     }
                   }
                 }
               })()
-
-
             })()
           })()
-
         }
         gameSpace.addEventListener('click', playerMove)
       }
-    })()
 
-
+    })()//PLAY
+    
   })()
 })()
 
