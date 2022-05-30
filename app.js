@@ -85,14 +85,8 @@ const game = (() => {
 
         const msgDivF = (() => {
           const msgDiv = document.createElement('div')
-          const msgDivTxt = document.createElement('p')
-          msgDiv.appendChild(msgDivTxt)
           msgDiv.setAttribute('id', 'msgDiv')
-          msgDiv.textContent = ''
-
-          const winnerDiv = document.createElement('div')
-          winnerDiv.setAttribute('id', 'winnerDiv')
-          msgDiv.appendChild(winnerDiv)
+          //msgDiv.textContent = ''
           markers.appendChild(msgDiv)
         })()
 
@@ -105,9 +99,11 @@ const game = (() => {
       container.classList.add('containerOff')
       body.appendChild(container)
 
-      document.getElementById('start').addEventListener('click', () => { document.getElementById('markerX').checked == false && document.getElementById('markerO').checked == false
+      document.getElementById('start').addEventListener('click', () => {
+        document.getElementById('markerX').checked == false && document.getElementById('markerO').checked == false
         ? console.log('pink')
-        : document.getElementById('container').classList.remove('containerOff') })
+        : document.getElementById('container').classList.remove('containerOff')
+      })
 
       const createSquares = (() => {
         for (let i = 1; i <= 9; i++) {
@@ -129,11 +125,11 @@ const game = (() => {
 
       const playerSelect = () => {
         if (markerO.checked == true) {
-          'O'
           msgDiv.innerHTML = `Player 1 is O <br> Player 2 is X`
+          markerX.disabled = true
         } else {
-          'X'
           msgDiv.innerHTML = `Player 1 is X <br> Player 2 is O`
+          markerO.disabled = true
         }
       }
       markerX.addEventListener('click', playerSelect)
@@ -176,13 +172,6 @@ const game = (() => {
             const square8 = document.getElementById(8)
             const square9 = document.getElementById(9)
 
-            const tieScore = (() => {
-              if (square1.textContent != '' && square2.textContent != '' && square3.textContent != '' && square4.textContent != '' && square5.textContent != '' && square6.textContent != '' && square7.textContent != '' && square8.textContent != '' && square9.textContent != '') {
-                winnerDiv.textContent = 'TIE'
-                container.style.pointerEvents = 'none'
-              }
-            })()
-
             const winner = (() => {
               const lineScore = (squareA, squareB, squareC) => {
                 squareA = parseInt(squareA.getAttribute('value'))
@@ -205,19 +194,24 @@ const game = (() => {
               const tally = (() => {
                 for (let i = 0; i < lineScores.length; i++) {
                   if (lineScores[i].score() == 3 || lineScores[i].score() == 6) {
-                    const winnerDiv = document.createElement('div')
-                    winnerDiv.setAttribute('id', 'winnerDiv')
-                    msgDiv.appendChild(winnerDiv)
                     if (lineScores[i].score() == 3) {
-                      winnerDiv.textContent = 'X WINS '
+                      msgDiv.innerHTML += `<br>X WINS</br>`
                       container.style.pointerEvents = 'none'
                     } else {
-                      winnerDiv.textContent = 'O WINS'
+                      msgDiv.innerHTML += `<br>O WINS</br>`
                       container.style.pointerEvents = 'none'
+                      console.log(msgDiv.textContent.length)
                     }
                   }
                 }
               })()
+            })()
+
+            const tieScore = (() => {
+              if (square1.textContent != '' && square2.textContent != '' && square3.textContent != '' && square4.textContent != '' && square5.textContent != '' && square6.textContent != '' && square7.textContent != '' && square8.textContent != '' && square9.textContent != '' && msgDiv.textContent.length < 34) {
+                msgDiv.textContent = 'TIE'
+                container.style.pointerEvents = 'none'
+              }
             })()
           })()
         }
