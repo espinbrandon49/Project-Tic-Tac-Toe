@@ -41,7 +41,7 @@ const game = (() => {
           const XOR = document.createElement('form')
           XOR.setAttribute('id', 'XOR')
           markers.appendChild(XOR)
-         
+
           const radioXF = (() => {
             const radioX = document.createElement('div')
             radioX.setAttribute('id', 'radioX')
@@ -76,10 +76,9 @@ const game = (() => {
           const restartBF = (() => {
             const restart = document.createElement('button')
             restart.setAttribute('type', 'submit')
+            restart.setAttribute('id', 'start')
             restart.textContent = 're/Start'
             XOR.appendChild(restart)
-            restart.addEventListener('click', () => gamePlay)
-
 
           })()
         })()
@@ -92,9 +91,7 @@ const game = (() => {
           msgDiv.textContent = ''
 
           const winnerDiv = document.createElement('div')
-          winnerDiv.textContent = ''
           winnerDiv.setAttribute('id', 'winnerDiv')
-
           msgDiv.appendChild(winnerDiv)
           markers.appendChild(msgDiv)
         })()
@@ -105,7 +102,12 @@ const game = (() => {
     const createContainer = (() => {
       const container = document.createElement('div')
       container.setAttribute('id', 'container')
+      container.classList.add('containerOff')
       body.appendChild(container)
+
+      document.getElementById('start').addEventListener('click', () => { document.getElementById('markerX').checked == false && document.getElementById('markerO').checked == false
+        ? console.log('pink')
+        : document.getElementById('container').classList.remove('containerOff') })
 
       const createSquares = (() => {
         for (let i = 1; i <= 9; i++) {
@@ -124,11 +126,11 @@ const game = (() => {
       const msgDiv = document.getElementById('msgDiv')
       const markerX = document.getElementById('markerX')
       const markerO = document.getElementById('markerO')
+
       const playerSelect = () => {
         if (markerO.checked == true) {
           'O'
           msgDiv.innerHTML = `Player 1 is O <br> Player 2 is X`
-
         } else {
           'X'
           msgDiv.innerHTML = `Player 1 is X <br> Player 2 is O`
@@ -202,8 +204,10 @@ const game = (() => {
               ]
               const tally = (() => {
                 for (let i = 0; i < lineScores.length; i++) {
-                  const container = document.getElementById('container')
                   if (lineScores[i].score() == 3 || lineScores[i].score() == 6) {
+                    const winnerDiv = document.createElement('div')
+                    winnerDiv.setAttribute('id', 'winnerDiv')
+                    msgDiv.appendChild(winnerDiv)
                     if (lineScores[i].score() == 3) {
                       winnerDiv.textContent = 'X WINS '
                       container.style.pointerEvents = 'none'
@@ -221,7 +225,7 @@ const game = (() => {
       }
 
     })()//PLAY
-    
+
   })()
 })()
 
