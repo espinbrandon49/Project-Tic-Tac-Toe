@@ -3,67 +3,55 @@
   padding: 0;
 }
 
-#title {
-  display: grid;
-  grid-auto-flow: column;
+#gameDisplay {
+  border: 1px solid black;
+  height: 500px;
+  width: 500px;
 }
 
-#col1Div {
-  display: grid;
-  grid-auto-flow: column;  
-}
-img {
-  height: 120px; 
-  background-color: black;
-  
-}
+#section1 {
+  border: 1px solid black;
+  height: 200px;
+  width: 200px;
+} 
 
-fieldset {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-areas:
-    'XOR'
-    'div';
-}
-
-fieldset>button {
+#player1Input, #player2Input{
+  border: 1px solid black;
   height: 20px;
 }
-#XOR {
-  display: grid;
-  grid-auto-flow: column;
-}
 
-#msgDiv {
-  grid-area: div;
-  border: 1px solid black;
-  height: 70px;
-  width: 100%;
-}
-
-#container {
-  border: 1px solid blue;
-  display: grid;
-  grid-template-rows: 150px 150px 150px;
-  grid-template-columns: 150px 150px 150px;
-  padding: 20px;
-  font-size: 75px;
-}
-
-.containerOff {
-  pointer-events: none;
-}
-
-.gameSquare {
-  border: 1px solid black;
-  height: 150px;
-  width: 150px;
-}
-
-#winnerDiv {
-  border: 1px solid blue;
+#player1GameOver, #player2GameOver {
+  width: 20px;
   height: 20px;
+  border: 1px solid blue;
 }
+
+::placeholder {
+  color: black;
+}
+
+#section2 {
+  border: 1px solid black;
+  height: 200px;
+  width: 200px;
+  display: grid;
+  grid-template-rows: 50px 50px 50px;
+  grid-template-columns: 50px 50px 50px;
+  justify-content: center;
+  align-content: center;
+} 
+
+.gameSquare, #player1Marker, #player2Marker {
+  border: 1px solid black;
+  height: 50px;
+  width:50px
+}
+/*
+restart game automatically
+EXTREME MINIMALISM  
+*/
+
+
 
 /*    
       document.getElementById('start').addEventListener('click', () => {
