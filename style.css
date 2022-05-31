@@ -1,9 +1,47 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
 
-body > div {
+#title {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+#col1Div {
+  display: grid;
+  grid-auto-flow: column;  
+}
+img {
+  height: 120px; 
+  background-color: black;
+  
+}
+
+fieldset {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-areas:
+    'XOR'
+    'div';
+}
+
+fieldset>button {
+  height: 20px;
+}
+#XOR {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+#msgDiv {
+  grid-area: div;
+  border: 1px solid black;
+  height: 70px;
+  width: 100%;
+}
+
+#container {
   border: 1px solid blue;
   display: grid;
   grid-template-rows: 150px 150px 150px;
@@ -12,8 +50,26 @@ body > div {
   font-size: 75px;
 }
 
-.gameSquare {
- border: 1px solid black;
- height: 150px;
- width: 150px;
+.containerOff {
+  pointer-events: none;
 }
+
+.gameSquare {
+  border: 1px solid black;
+  height: 150px;
+  width: 150px;
+}
+
+#winnerDiv {
+  border: 1px solid blue;
+  height: 20px;
+}
+
+/*    
+      document.getElementById('start').addEventListener('click', () => {
+        if (document.getElementById('markerX').checked == false && document.getElementById('markerX').checked == false) {
+          console.log('pink')
+        } else {
+          document.getElementById('container').classList.remove('containerOff')
+        }
+    })*/
