@@ -77,16 +77,15 @@ const game = (() => {
             const restart = document.createElement('button')
             restart.setAttribute('type', 'submit')
             restart.setAttribute('id', 'start')
-            restart.textContent = 're/Start'
+            restart.textContent = 'Start'
             XOR.appendChild(restart)
-
           })()
         })()
 
         const msgDivF = (() => {
           const msgDiv = document.createElement('div')
           msgDiv.setAttribute('id', 'msgDiv')
-          //msgDiv.textContent = ''
+          msgDiv.innerHTML = `Select a marker<br>Then press Start`
           markers.appendChild(msgDiv)
         })()
 
@@ -200,7 +199,6 @@ const game = (() => {
                     } else {
                       msgDiv.innerHTML += `<br>O WINS</br>`
                       container.style.pointerEvents = 'none'
-                      console.log(msgDiv.textContent.length)
                     }
                   }
                 }
@@ -224,9 +222,12 @@ const game = (() => {
 })()
 
 
-//the end game will have a msg pop up under the assignment declarations  to declare a winner in blankDiv
+
 //either PLAYER 1 WINS or PLAYER 2 WINS or HELLO WORLD (com wins)
-//clicking in the containerDiv will close the winnerDiv
-//must press restart to play another game
 
-
+/*
+*make start a reset as well
+*let players input names
+*computer AI
+*CSS
+*/
