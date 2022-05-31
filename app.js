@@ -1,233 +1,143 @@
-const game = (() => {
+const createGameUI = (() => {
+  const body = document.querySelector('body')
 
-  const createGameboard = (() => {
-    const body = document.querySelector('body')
-
-    const createTitle = (() => {
-      const title = document.createElement('div')
-      title.setAttribute('id', 'title')
-      body.appendChild(title)
-
-      const titleCol1 = (() => {
-        const col1Div = document.createElement('div')
-        col1Div.setAttribute('id', 'col1Div')
-        title.appendChild(col1Div)
-
-        const imageF = (() => {
-          const image = document.createElement('img')
-          image.setAttribute('src', './odin-lined.png')
-          col1Div.appendChild(image)
-        })()
-
-        const titleTxtF = (() => {
-          const headerText = document.createElement('h1')
-          headerText.textContent = 'Tic Tac Toe'
-          col1Div.appendChild(headerText)
-        })()
-      })()
-
-      const titleCol2 = (() => {
-        const markers = document.createElement('fieldset')
-        markers.setAttribute('id', 'markers')
-        title.appendChild(markers)
-
-        const legendF = (() => {
-          const legend = document.createElement('legend')
-          legend.textContent = 'Select marker'
-          markers.appendChild(legend)
-        })()
-
-        const XORf = (() => {
-          const XOR = document.createElement('form')
-          XOR.setAttribute('id', 'XOR')
-          markers.appendChild(XOR)
-
-          const radioXF = (() => {
-            const radioX = document.createElement('div')
-            radioX.setAttribute('id', 'radioX')
-            const labelX = document.createElement('label')
-            labelX.setAttribute('for', 'markerX')
-            labelX.textContent = 'X'
-            const X = document.createElement('input')
-            X.setAttribute('required', '')
-            X.setAttribute('type', 'radio')
-            X.setAttribute('id', 'markerX')
-            X.setAttribute('name', 'marker')
-            XOR.appendChild(radioX)
-            radioX.appendChild(X)
-            radioX.appendChild(labelX)
-          })()
-
-          const radioOF = (() => {
-            const radioO = document.createElement('div')
-            radioO.setAttribute('id', 'radioO')
-            const labelO = document.createElement('label')
-            labelO.setAttribute('for', 'markerO')
-            labelO.textContent = 'O'
-            const O = document.createElement('input')
-            O.setAttribute('id', 'markerO')
-            O.setAttribute('type', 'radio')
-            O.setAttribute('name', 'marker')
-            XOR.appendChild(radioO)
-            radioO.appendChild(O)
-            radioO.appendChild(labelO)
-          })()
-
-          const restartBF = (() => {
-            const restart = document.createElement('button')
-            restart.setAttribute('type', 'submit')
-            restart.setAttribute('id', 'start')
-            restart.textContent = 'Start'
-            XOR.appendChild(restart)
-          })()
-        })()
-
-        const msgDivF = (() => {
-          const msgDiv = document.createElement('div')
-          msgDiv.setAttribute('id', 'msgDiv')
-          msgDiv.innerHTML = `Select a marker<br>Then press Start`
-          markers.appendChild(msgDiv)
-        })()
-
-      })()
-    })()
-
-    const createContainer = (() => {
-      const container = document.createElement('div')
-      container.setAttribute('id', 'container')
-      container.classList.add('containerOff')
-      body.appendChild(container)
-
-      document.getElementById('start').addEventListener('click', () => {
-        document.getElementById('markerX').checked == false && document.getElementById('markerO').checked == false
-        ? console.log('pink')
-        : document.getElementById('container').classList.remove('containerOff')
-      })
-
-      const createSquares = (() => {
-        for (let i = 1; i <= 9; i++) {
-          const gameDiv = document.createElement('div')
-          gameDiv.classList.add('gameSquare')
-          gameDiv.setAttribute('id', i)
-          container.appendChild(gameDiv)
-        }
-      })()
-    })()
-
-  })()
-
-  const gamePlay = (() => {
-    const playerSelect = (() => {
-      const msgDiv = document.getElementById('msgDiv')
-      const markerX = document.getElementById('markerX')
-      const markerO = document.getElementById('markerO')
-
-      const playerSelect = () => {
-        if (markerO.checked == true) {
-          msgDiv.innerHTML = `Player 1 is O <br> Player 2 is X`
-          markerX.disabled = true
-        } else {
-          msgDiv.innerHTML = `Player 1 is X <br> Player 2 is O`
-          markerO.disabled = true
-        }
-      }
-      markerX.addEventListener('click', playerSelect)
-      markerO.addEventListener('click', playerSelect)
-
-      const player = (player, name, marker) => {
-        player = player
-        name = name //player select name input
-        marker = marker // player choose marker
-        return { player, name, marker }
-      }
-      const player1 = player(1, 'Player 1', 'X')
-      const player2 = player(2, 'player2', 'O')
-    })()
-
-    const play = (() => {
-      let count = 0
-      for (let i = 1; i <= 9; i++) {
-        let gameSpace = document.getElementById(i)
-        const playerMove = () => {
-          if (gameSpace.textContent == '') {
-            if (count % 2 == 0) {
-              gameSpace.textContent = 'X'
-              gameSpace.setAttribute('value', 1)
-            } else {
-              gameSpace.textContent = 'O'
-              gameSpace.setAttribute('value', 2)
-            }
-            count++
-          }
-
-          const endGame = (() => {
-            const square1 = document.getElementById(1)
-            const square2 = document.getElementById(2)
-            const square3 = document.getElementById(3)
-            const square4 = document.getElementById(4)
-            const square5 = document.getElementById(5)
-            const square6 = document.getElementById(6)
-            const square7 = document.getElementById(7)
-            const square8 = document.getElementById(8)
-            const square9 = document.getElementById(9)
-
-            const winner = (() => {
-              const lineScore = (squareA, squareB, squareC) => {
-                squareA = parseInt(squareA.getAttribute('value'))
-                squareB = parseInt(squareB.getAttribute('value'))
-                squareC = parseInt(squareC.getAttribute('value'))
-                const score = () => squareA + squareB + squareC
-                return { score, squareA, squareB, squareC }
-              }
-              const lineScores = [
-                lineScore(square1, square2, square3),
-                lineScore(square1, square2, square3),
-                lineScore(square4, square5, square6),
-                lineScore(square7, square8, square9),
-                lineScore(square1, square4, square7),
-                lineScore(square2, square5, square8),
-                lineScore(square3, square6, square9),
-                lineScore(square1, square5, square9),
-                lineScore(square3, square5, square7)
-              ]
-              const tally = (() => {
-                for (let i = 0; i < lineScores.length; i++) {
-                  if (lineScores[i].score() == 3 || lineScores[i].score() == 6) {
-                    if (lineScores[i].score() == 3) {
-                      msgDiv.innerHTML += `<br>X WINS</br>`
-                      container.style.pointerEvents = 'none'
-                    } else {
-                      msgDiv.innerHTML += `<br>O WINS</br>`
-                      container.style.pointerEvents = 'none'
-                    }
-                  }
-                }
-              })()
-            })()
-
-            const tieScore = (() => {
-              if (square1.textContent != '' && square2.textContent != '' && square3.textContent != '' && square4.textContent != '' && square5.textContent != '' && square6.textContent != '' && square7.textContent != '' && square8.textContent != '' && square9.textContent != '' && msgDiv.textContent.length < 34) {
-                msgDiv.textContent = 'TIE'
-                container.style.pointerEvents = 'none'
-              }
-            })()
-          })()
-        }
-        gameSpace.addEventListener('click', playerMove)
-      }
-
-    })()//PLAY
-
+  const createGameDisplay = (() => {
+    const gameDisplay = document.createElement('div')
+    gameDisplay.setAttribute('id', 'gameDisplay')
+    gameDisplay.textContent = 'gameDisplay'
+    body.appendChild(gameDisplay)
   })()
 })()
 
+const createSection1 = (() => {
+  const section1 = document.createElement('div')
+  section1.setAttribute('id', 'section1')
+  section1.textContent = 'section1'
+  gameDisplay.appendChild(section1)
+})()
 
+const createPlayer1 = (() => {
+  const player1Input = document.createElement('input')
+  player1Input.setAttribute('id', 'player1Input')
+  player1Input.setAttribute('placeholder', 'Player One')
+  section1.appendChild(player1Input)
 
-//either PLAYER 1 WINS or PLAYER 2 WINS or HELLO WORLD (com wins)
+  const player1GameOver = document.createElement('div')
+  player1GameOver.setAttribute('id', 'player1GameOver')
+  section1.appendChild(player1GameOver)
 
-/*
-*make start a reset as well
-*let players input names
-*computer AI
-*CSS
-*/
+  const player1Marker = document.createElement('div')
+  player1Marker.setAttribute('id', 'player1Marker')
+  player1Marker.textContent = 'X'
+  section1.appendChild(player1Marker)
+})()
+
+const createPlayer2 = (() => {
+  const player2Input = document.createElement('input')
+  player2Input.setAttribute('id', 'player2Input')
+  player2Input.setAttribute('placeholder', 'Player Two')
+  section1.appendChild(player2Input)
+
+  const player2GameOver = document.createElement('div')
+  player2GameOver.setAttribute('id', 'player2GameOver')
+  section1.appendChild(player2GameOver)
+
+  const player2Marker = document.createElement('div')
+  player2Marker.setAttribute('id', 'player2Marker')
+  player2Marker.textContent = 'O'
+  section1.appendChild(player2Marker)
+})()
+
+const createSection2 = (() => {
+  const section2 = document.createElement('div')
+  section2.setAttribute('id', 'section2')
+  gameDisplay.appendChild(section2)
+})()
+
+const createGameGrid = (() => {
+  for (let i = 1; i <= 9; i++) {
+    const gameSquare = document.createElement('div')
+    gameSquare.classList.add('gameSquare')
+    gameSquare.setAttribute('id', i)
+    section2.appendChild(gameSquare)
+  }
+})() //createGameGrid
+
+const gameTurn = (() => {
+  let count = 0
+  for (let i = 1; i <= 9; i++) {
+    const gameSpace = document.getElementById(i)
+    const playerMove = () => {
+      if (gameSpace.textContent == '') {
+        if (count % 2 == 0) {
+          gameSpace.textContent = 'X'
+          gameSpace.setAttribute('value', 1)
+        } else {
+          gameSpace.textContent = 'O'
+          gameSpace.setAttribute('value', 2)
+        }
+        count++
+      }
+      const lineTally = (() => {
+        const square1 = document.getElementById(1)
+        const square2 = document.getElementById(2)
+        const square3 = document.getElementById(3)
+        const square4 = document.getElementById(4)
+        const square5 = document.getElementById(5)
+        const square6 = document.getElementById(6)
+        const square7 = document.getElementById(7)
+        const square8 = document.getElementById(8)
+        const square9 = document.getElementById(9)
+
+        const lineScore = (squareA, squareB, squareC) => {
+          squareA = parseInt(squareA.getAttribute('value'))
+          squareB = parseInt(squareB.getAttribute('value'))
+          squareC = parseInt(squareC.getAttribute('value'))
+          const score = () => squareA + squareB + squareC
+          return { score, squareA, squareB, squareC }
+        }
+        const lineScores = [
+          lineScore(square1, square2, square3),
+          lineScore(square1, square2, square3),
+          lineScore(square4, square5, square6),
+          lineScore(square7, square8, square9),
+          lineScore(square1, square4, square7),
+          lineScore(square2, square5, square8),
+          lineScore(square3, square6, square9),
+          lineScore(square1, square5, square9),
+          lineScore(square3, square5, square7)
+        ]
+        for (let i = 0; i < lineScores.length; i++) {
+          if (lineScores[i].score() == 3 || lineScores[i].score() == 6) {
+            if (lineScores[i].score() == 3) {
+              console.log('player1 Wins')
+              document.getElementById('player1GameOver').textContent = 'W'
+              document.getElementById('player2GameOver').textContent = 'L'
+            } else {
+              console.log('player2 Wins')
+              document.getElementById('player2GameOver').textContent = 'W'
+              document.getElementById('player1GameOver').textContent = 'L'
+            }
+            document.getElementById('section2').style.pointerEvents = 'none'
+            document.getElementById('section2').setAttribute('value', 5)
+            function refresh() { location.reload() }; setTimeout(refresh, 1500)
+          }
+        } //*for Loop[lineTally]
+
+        const tieScore = (() => {
+          if (square1.textContent != '' && square2.textContent != '' && square3.textContent != '' && square4.textContent != '' && square5.textContent != '' && square6.textContent != '' && square7.textContent != '' && square8.textContent != '' && square9.textContent != '' && document.getElementById('section2').getAttribute('value') != 5) {
+            document.getElementById('player1GameOver').textContent = 'T'
+            document.getElementById('player2GameOver').textContent = 'T'
+            document.getElementById('section2').style.pointerEvents = 'none'
+            function refresh() { location.reload() }; setTimeout(refresh, 1500)
+          }
+        })() //tieSCore
+      })() //lineTally
+    } //playerMove
+    document.getElementById('section2').addEventListener('click', () => {
+      document.getElementById('player1Input').disabled = true
+      document.getElementById('player2Input').disabled = true
+    })
+    gameSpace.addEventListener('click', playerMove)
+  } //*for loop[gameTurn]
+})() //gameTurn
