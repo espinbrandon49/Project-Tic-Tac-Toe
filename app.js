@@ -94,19 +94,22 @@ const gameTurn = (() => {
           const HAL = (() => {
             if (document.getElementById('player2Input').getAttribute('value') == 'HAL') {
               const squareArray = [square1, square2, square3, square4, square5, square6, square7, square8, square9]
-
               const random = Math.floor(Math.random() * (9 - 0) + 0)
-             // console.log('How am i ALive?')
-
+              
               const comp = (square) => {
                 if (square.getAttribute('value') == null) {
                   square.setAttribute('value', 2)
                   square.textContent = 'O'
                 } else {
-                  console.log('pink')
-                  
+                  for (let i = 0; i < squareArray.length; i++) {
+                    if (squareArray[i].getAttribute('value') == null) {
+                      squareArray[i].setAttribute('value', 2)
+                      squareArray[i].textContent = 'O'
+                      i = 9
+                    }
+                  }
                 }
-              } 
+              }//comp
               comp(squareArray[random])
               count++
             }
@@ -118,7 +121,7 @@ const gameTurn = (() => {
         }
         count++
       }
-      const lineTally = (() => {
+      const gameOver = (() => {
         const lineScore = (squareA, squareB, squareC) => {
           squareA = parseInt(squareA.getAttribute('value'))
           squareB = parseInt(squareB.getAttribute('value'))
@@ -137,21 +140,22 @@ const gameTurn = (() => {
           lineScore(square1, square5, square9),
           lineScore(square3, square5, square7)
         ]
-        for (let i = 0; i < lineScores.length; i++) {
-          if (lineScores[i].score() == 3 || lineScores[i].score() == 6) {
-            if (lineScores[i].score() == 3) {
-              document.getElementById('player1GameOver').textContent = 'W'
-              document.getElementById('player2GameOver').textContent = 'L'
-            } else {
-              document.getElementById('player2GameOver').textContent = 'W'
-              document.getElementById('player1GameOver').textContent = 'L'
+        const winner = (() => {
+          for (let i = 0; i < lineScores.length; i++) {
+            if (lineScores[i].score() == 3 || lineScores[i].score() == 6) {
+              if (lineScores[i].score() == 3) {
+                document.getElementById('player1GameOver').textContent = 'W'
+                document.getElementById('player2GameOver').textContent = 'L'
+              } else {
+                document.getElementById('player2GameOver').textContent = 'W'
+                document.getElementById('player1GameOver').textContent = 'L'
+              }
+              document.getElementById('section2').style.pointerEvents = 'none'
+              document.getElementById('section2').setAttribute('value', 5)
+              //function refresh() { location.reload() }; setTimeout(refresh, 1500)
             }
-            document.getElementById('section2').style.pointerEvents = 'none'
-            document.getElementById('section2').setAttribute('value', 5)
-            //function refresh() { location.reload() }; setTimeout(refresh, 1500)
-          }
-        } //*for Loop[lineTally]
-
+          } 
+        })() //winner
         const tieScore = (() => {
           if (square1.textContent != '' && square2.textContent != '' && square3.textContent != '' && square4.textContent != '' && square5.textContent != '' && square6.textContent != '' && square7.textContent != '' && square8.textContent != '' && square9.textContent != '' && document.getElementById('section2').getAttribute('value') != 5) {
             document.getElementById('player1GameOver').textContent = 'T'
@@ -160,7 +164,7 @@ const gameTurn = (() => {
             //function refresh() { location.reload() }; setTimeout(refresh, 1500)
           }
         })() //tieSCore
-      })() //lineTally
+      })() //gameOver
     } //playerMove
     document.getElementById('section2').addEventListener('click', () => {
       document.getElementById('player1Input').disabled = true
@@ -171,6 +175,7 @@ const gameTurn = (() => {
     document.getElementById('playerComputerInput').addEventListener('click', () => {
       document.getElementById('player2Input').setAttribute('value', 'HAL')
       document.getElementById('player2Input').disabled = true
+      console.log('How am i ALive?')
     })
 
     gameSpace.addEventListener('click', playerMove)
