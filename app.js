@@ -71,7 +71,7 @@ const createGameGrid = (() => {
 })() //createGameGrid
 //END CREATE UI//
 
-const gameTurn = (() => {
+const gamePlay = (() => {
   const square1 = document.getElementById(1)
   const square2 = document.getElementById(2)
   const square3 = document.getElementById(3)
@@ -81,46 +81,51 @@ const gameTurn = (() => {
   const square7 = document.getElementById(7)
   const square8 = document.getElementById(8)
   const square9 = document.getElementById(9)
-
+  
   let count = 0
   for (let i = 1; i <= 9; i++) {
     const gameSpace = document.getElementById(i)
-    const playerMove = () => {
-      if (gameSpace.textContent == '') {
-        if (count % 2 == 0) {
-          gameSpace.textContent = 'X'
-          gameSpace.setAttribute('value', 1)
 
-          const HAL = (() => {
-            if (document.getElementById('player2Input').getAttribute('value') == 'HAL') {
-              const squareArray = [square1, square2, square3, square4, square5, square6, square7, square8, square9]
-              const random = Math.floor(Math.random() * (9 - 0) + 0)
-              
-              const comp = (square) => {
-                if (square.getAttribute('value') == null) {
-                  square.setAttribute('value', 2)
-                  square.textContent = 'O'
-                } else {
-                  for (let i = 0; i < squareArray.length; i++) {
-                    if (squareArray[i].getAttribute('value') == null) {
-                      squareArray[i].setAttribute('value', 2)
-                      squareArray[i].textContent = 'O'
-                      i = 9
+    const play = () => {
+      const playerTurn = (() => {
+        if (gameSpace.textContent == '') {
+          if (count % 2 == 0) {
+            gameSpace.textContent = 'X'
+            gameSpace.setAttribute('value', 1)
+
+            const HAL = (() => {
+              if (document.getElementById('player2Input').getAttribute('value') == 'HAL') {
+                const squareArray = [square1, square2, square3, square4, square5, square6, square7, square8, square9]
+                const random = Math.floor(Math.random() * (9 - 0) + 0)
+
+                const computerPlayerMove = ((square) => {
+                  if (square.getAttribute('value') == null) {
+                    square.setAttribute('value', 2)
+                    square.textContent = 'O'
+                  } else {
+                    for (let i = 0; i < squareArray.length; i++) {
+                      if (squareArray[i].getAttribute('value') == null) {
+                        squareArray[i].setAttribute('value', 2)
+                        squareArray[i].textContent = 'O'
+                        i = 9
+                      }
                     }
                   }
-                }
-              }//comp
-              comp(squareArray[random])
-              count++
-            }
-          })() //HAL
+                })(squareArray[random]) //computerPlayerMove
+                count++
+                console.log(count)
+              }
+            })() //HAL
 
-        } else {
-          gameSpace.textContent = 'O'
-          gameSpace.setAttribute('value', 2)
+          } else {
+            gameSpace.textContent = 'O'
+            gameSpace.setAttribute('value', 2)
+          }
+          count++
+          console.log(count)
         }
-        count++
-      }
+      })() //playerTurn
+
       const gameOver = (() => {
         const lineScore = (squareA, squareB, squareC) => {
           squareA = parseInt(squareA.getAttribute('value'))
@@ -154,7 +159,7 @@ const gameTurn = (() => {
               document.getElementById('section2').setAttribute('value', 5)
               //function refresh() { location.reload() }; setTimeout(refresh, 1500)
             }
-          } 
+          }
         })() //winner
         const tieScore = (() => {
           if (square1.textContent != '' && square2.textContent != '' && square3.textContent != '' && square4.textContent != '' && square5.textContent != '' && square6.textContent != '' && square7.textContent != '' && square8.textContent != '' && square9.textContent != '' && document.getElementById('section2').getAttribute('value') != 5) {
@@ -165,22 +170,28 @@ const gameTurn = (() => {
           }
         })() //tieSCore
       })() //gameOver
-    } //playerMove
-    document.getElementById('section2').addEventListener('click', () => {
-      document.getElementById('player1Input').disabled = true
-      document.getElementById('player2Input').disabled = true
-      document.getElementById('playerComputerInput').disabled = true
-    })
+    } //play()
 
-    document.getElementById('playerComputerInput').addEventListener('click', () => {
-      document.getElementById('player2Input').setAttribute('value', 'HAL')
-      document.getElementById('player2Input').disabled = true
-      console.log('How am i ALive?')
-    })
+    const disablePlayerInput = (() => { //starting a game
+      document.getElementById('section2').addEventListener('click', () => {
+        document.getElementById('player1Input').disabled = true
+        document.getElementById('player2Input').disabled = true
+        document.getElementById('playerComputerInput').disabled = true
+      })
+    })()
 
-    gameSpace.addEventListener('click', playerMove)
-  } //*for loop[gameTurn]
+    const vsHALButton = (() => {
+      document.getElementById('playerComputerInput').addEventListener('click', () => {
+        document.getElementById('player2Input').setAttribute('value', 'HAL')
+        document.getElementById('player2Input').disabled = true
+        console.log('How am i ALive?')
+      })
+    })()
 
-})() //gameTurn
+    const playGame = (() => gameSpace.addEventListener('click', play))()
+
+  } //*for loop[gamePlay]
+
+})() //gamePlay
 
 
