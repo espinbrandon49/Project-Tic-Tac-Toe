@@ -12,7 +12,6 @@ const createGameUI = (() => {
 const createSection1 = (() => {
   const section1 = document.createElement('div')
   section1.setAttribute('id', 'section1')
-  section1.textContent = 'section1'
   gameDisplay.appendChild(section1)
 })()
 
@@ -20,39 +19,47 @@ const createPlayer1 = (() => {
   const player1Input = document.createElement('input')
   player1Input.setAttribute('id', 'player1Input')
   player1Input.setAttribute('placeholder', 'Player One')
-  section1.appendChild(player1Input)
 
   const player1GameOver = document.createElement('div')
   player1GameOver.setAttribute('id', 'player1GameOver')
-  section1.appendChild(player1GameOver)
 
   const player1Marker = document.createElement('div')
   player1Marker.setAttribute('id', 'player1Marker')
   player1Marker.textContent = 'X'
-  section1.appendChild(player1Marker)
+
+  const player1Div = document.createElement('div')
+  player1Div.setAttribute('id', 'player1Div')
+  player1Div.appendChild(player1Input)
+  player1Div.appendChild(player1GameOver)
+  player1Div.appendChild(player1Marker)
+  section1.appendChild(player1Div)
 })()
 
 const createPlayer2 = (() => {
   const player2Input = document.createElement('input')
   player2Input.setAttribute('id', 'player2Input')
   player2Input.setAttribute('placeholder', 'Player Two')
-  section1.appendChild(player2Input)
 
   const player2GameOver = document.createElement('div')
   player2GameOver.setAttribute('id', 'player2GameOver')
-  section1.appendChild(player2GameOver)
 
   const player2Marker = document.createElement('div')
   player2Marker.setAttribute('id', 'player2Marker')
   player2Marker.textContent = 'O'
-  section1.appendChild(player2Marker)
+
+  const player2Div = document.createElement('div')
+  player2Div.setAttribute('id', 'player2Div')
+  player2Div.appendChild(player2Input)
+  player2Div.appendChild(player2GameOver)
+  player2Div.appendChild(player2Marker)
+  section1.appendChild(player2Div) 
 })()
 
 const createPlayerComputer = (() => {
   const playerComputerInput = document.createElement('button')
   playerComputerInput.setAttribute('id', 'playerComputerInput')
   playerComputerInput.textContent = 'vs. HAL'
-  section1.appendChild(playerComputerInput)
+  player2Div.appendChild(playerComputerInput)
 })()
 
 const createSection2 = (() => {
@@ -81,7 +88,7 @@ const gamePlay = (() => {
   const square7 = document.getElementById(7)
   const square8 = document.getElementById(8)
   const square9 = document.getElementById(9)
-  
+
   let count = 0
   for (let i = 1; i <= 9; i++) {
     const gameSpace = document.getElementById(i)
@@ -97,7 +104,6 @@ const gamePlay = (() => {
               if (document.getElementById('player2Input').getAttribute('value') == 'HAL') {
                 const squareArray = [square1, square2, square3, square4, square5, square6, square7, square8, square9]
                 const random = Math.floor(Math.random() * (9 - 0) + 0)
-
                 const computerPlayerMove = ((square) => {
                   if (square.getAttribute('value') == null) {
                     square.setAttribute('value', 2)
@@ -113,7 +119,6 @@ const gamePlay = (() => {
                   }
                 })(squareArray[random]) //computerPlayerMove
                 count++
-                console.log(count)
               }
             })() //HAL
 
@@ -122,11 +127,10 @@ const gamePlay = (() => {
             gameSpace.setAttribute('value', 2)
           }
           count++
-          console.log(count)
         }
       })() //playerTurn
 
-      const gameOver = (() => {
+      const gameOver = (() => { 
         const lineScore = (squareA, squareB, squareC) => {
           squareA = parseInt(squareA.getAttribute('value'))
           squareB = parseInt(squareB.getAttribute('value'))
