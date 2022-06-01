@@ -48,6 +48,13 @@ const createPlayer2 = (() => {
   section1.appendChild(player2Marker)
 })()
 
+const createPlayerComputer = (() => {
+  const playerComputerInput = document.createElement('button')
+  playerComputerInput.setAttribute('id', 'playerComputerInput')
+  playerComputerInput.textContent = 'vs. HAL'
+  section1.appendChild(playerComputerInput)
+})()
+
 const createSection2 = (() => {
   const section2 = document.createElement('div')
   section2.setAttribute('id', 'section2')
@@ -62,8 +69,21 @@ const createGameGrid = (() => {
     section2.appendChild(gameSquare)
   }
 })() //createGameGrid
+//END CREATE UI//
 
 const gameTurn = (() => {
+  const square1 = document.getElementById(1)
+  const square2 = document.getElementById(2)
+  const square3 = document.getElementById(3)
+  const square4 = document.getElementById(4)
+  const square5 = document.getElementById(5)
+  const square6 = document.getElementById(6)
+  const square7 = document.getElementById(7)
+  const square8 = document.getElementById(8)
+  const square9 = document.getElementById(9)
+
+
+
   let count = 0
   for (let i = 1; i <= 9; i++) {
     const gameSpace = document.getElementById(i)
@@ -72,6 +92,18 @@ const gameTurn = (() => {
         if (count % 2 == 0) {
           gameSpace.textContent = 'X'
           gameSpace.setAttribute('value', 1)
+          if (document.getElementById('player2Input').getAttribute('value') == 'HAL') {
+            const squareArray = [square1, square2, square3, square4, square5, square6, square7, square8, square9]
+            const random = Math.floor(Math.random() * (9 - 0) + 0)
+            console.log('How am i ALive?')
+            if (squareArray[random].textContent = '') {
+              squareArray[random].textContent = 'O'
+            } else {
+              squareArray[random].textContent = 'O'
+            }
+            
+            count++
+          }
         } else {
           gameSpace.textContent = 'O'
           gameSpace.setAttribute('value', 2)
@@ -79,16 +111,6 @@ const gameTurn = (() => {
         count++
       }
       const lineTally = (() => {
-        const square1 = document.getElementById(1)
-        const square2 = document.getElementById(2)
-        const square3 = document.getElementById(3)
-        const square4 = document.getElementById(4)
-        const square5 = document.getElementById(5)
-        const square6 = document.getElementById(6)
-        const square7 = document.getElementById(7)
-        const square8 = document.getElementById(8)
-        const square9 = document.getElementById(9)
-
         const lineScore = (squareA, squareB, squareC) => {
           squareA = parseInt(squareA.getAttribute('value'))
           squareB = parseInt(squareB.getAttribute('value'))
@@ -110,11 +132,9 @@ const gameTurn = (() => {
         for (let i = 0; i < lineScores.length; i++) {
           if (lineScores[i].score() == 3 || lineScores[i].score() == 6) {
             if (lineScores[i].score() == 3) {
-              console.log('player1 Wins')
               document.getElementById('player1GameOver').textContent = 'W'
               document.getElementById('player2GameOver').textContent = 'L'
             } else {
-              console.log('player2 Wins')
               document.getElementById('player2GameOver').textContent = 'W'
               document.getElementById('player1GameOver').textContent = 'L'
             }
@@ -137,7 +157,17 @@ const gameTurn = (() => {
     document.getElementById('section2').addEventListener('click', () => {
       document.getElementById('player1Input').disabled = true
       document.getElementById('player2Input').disabled = true
+      document.getElementById('playerComputerInput').disabled = true
     })
+
+    document.getElementById('playerComputerInput').addEventListener('click', () => {
+      document.getElementById('player2Input').setAttribute('value', 'HAL')
+      document.getElementById('player2Input').disabled = true
+    })
+
     gameSpace.addEventListener('click', playerMove)
   } //*for loop[gameTurn]
+
 })() //gameTurn
+
+
