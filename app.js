@@ -82,8 +82,6 @@ const gameTurn = (() => {
   const square8 = document.getElementById(8)
   const square9 = document.getElementById(9)
 
-
-
   let count = 0
   for (let i = 1; i <= 9; i++) {
     const gameSpace = document.getElementById(i)
@@ -92,18 +90,28 @@ const gameTurn = (() => {
         if (count % 2 == 0) {
           gameSpace.textContent = 'X'
           gameSpace.setAttribute('value', 1)
-          if (document.getElementById('player2Input').getAttribute('value') == 'HAL') {
-            const squareArray = [square1, square2, square3, square4, square5, square6, square7, square8, square9]
-            const random = Math.floor(Math.random() * (9 - 0) + 0)
-            console.log('How am i ALive?')
-            if (squareArray[random].textContent = '') {
-              squareArray[random].textContent = 'O'
-            } else {
-              squareArray[random].textContent = 'O'
+
+          const HAL = (() => {
+            if (document.getElementById('player2Input').getAttribute('value') == 'HAL') {
+              const squareArray = [square1, square2, square3, square4, square5, square6, square7, square8, square9]
+
+              const random = Math.floor(Math.random() * (9 - 0) + 0)
+             // console.log('How am i ALive?')
+
+              const comp = (square) => {
+                if (square.getAttribute('value') == null) {
+                  square.setAttribute('value', 2)
+                  square.textContent = 'O'
+                } else {
+                  console.log('pink')
+                  
+                }
+              } 
+              comp(squareArray[random])
+              count++
             }
-            
-            count++
-          }
+          })() //HAL
+
         } else {
           gameSpace.textContent = 'O'
           gameSpace.setAttribute('value', 2)
@@ -140,7 +148,7 @@ const gameTurn = (() => {
             }
             document.getElementById('section2').style.pointerEvents = 'none'
             document.getElementById('section2').setAttribute('value', 5)
-            function refresh() { location.reload() }; setTimeout(refresh, 1500)
+            //function refresh() { location.reload() }; setTimeout(refresh, 1500)
           }
         } //*for Loop[lineTally]
 
@@ -149,7 +157,7 @@ const gameTurn = (() => {
             document.getElementById('player1GameOver').textContent = 'T'
             document.getElementById('player2GameOver').textContent = 'T'
             document.getElementById('section2').style.pointerEvents = 'none'
-            function refresh() { location.reload() }; setTimeout(refresh, 1500)
+            //function refresh() { location.reload() }; setTimeout(refresh, 1500)
           }
         })() //tieSCore
       })() //lineTally
