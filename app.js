@@ -1,10 +1,14 @@
 const createGameUI = (() => {
   const body = document.querySelector('body')
 
+  const winnerDisplay = document.createElement('div')
+  body.appendChild(winnerDisplay)
+  winnerDisplay.setAttribute('id', 'winnerDisplay')
+
   const createGameDisplay = (() => {
     const gameDisplay = document.createElement('div')
     gameDisplay.setAttribute('id', 'gameDisplay')
-    gameDisplay.textContent = 'gameDisplay'
+    //gameDisplay.textContent = 'gameDisplay'
     body.appendChild(gameDisplay)
   })()
 })()
@@ -16,21 +20,17 @@ const createSection1 = (() => {
 })()
 
 const createPlayer1 = (() => {
-  const player1Input = document.createElement('input')
-  player1Input.setAttribute('id', 'player1Input')
-  player1Input.setAttribute('placeholder', 'Player One')
-
-  const player1GameOver = document.createElement('div')
-  player1GameOver.setAttribute('id', 'player1GameOver')
-
   const player1Marker = document.createElement('div')
   player1Marker.setAttribute('id', 'player1Marker')
   player1Marker.textContent = 'X'
 
+  const player1Input = document.createElement('input')
+  player1Input.setAttribute('id', 'player1Input')
+  player1Input.setAttribute('placeholder', 'Player One')
+
   const player1Div = document.createElement('div')
   player1Div.setAttribute('id', 'player1Div')
   player1Div.appendChild(player1Input)
-  player1Div.appendChild(player1GameOver)
   player1Div.appendChild(player1Marker)
   section1.appendChild(player1Div)
 })()
@@ -40,26 +40,21 @@ const createPlayer2 = (() => {
   player2Input.setAttribute('id', 'player2Input')
   player2Input.setAttribute('placeholder', 'Player Two')
 
-  const player2GameOver = document.createElement('div')
-  player2GameOver.setAttribute('id', 'player2GameOver')
-
   const player2Marker = document.createElement('div')
   player2Marker.setAttribute('id', 'player2Marker')
   player2Marker.textContent = 'O'
 
   const player2Div = document.createElement('div')
   player2Div.setAttribute('id', 'player2Div')
-  player2Div.appendChild(player2Input)
-  player2Div.appendChild(player2GameOver)
   player2Div.appendChild(player2Marker)
-  section1.appendChild(player2Div) 
+  player2Div.appendChild(player2Input)
+  section1.appendChild(player2Div)
 })()
 
 const createPlayerComputer = (() => {
   const playerComputerInput = document.createElement('button')
   playerComputerInput.setAttribute('id', 'playerComputerInput')
-  playerComputerInput.textContent = 'vs. HAL'
-  player2Div.appendChild(playerComputerInput)
+  gameDisplay.appendChild(playerComputerInput)
 })()
 
 const createSection2 = (() => {
@@ -72,26 +67,27 @@ const createGameGrid = (() => {
   for (let i = 1; i <= 9; i++) {
     const gameSquare = document.createElement('div')
     gameSquare.classList.add('gameSquare')
-    gameSquare.setAttribute('id', i)
+    gameSquare.setAttribute('id', `a${i}`)
     section2.appendChild(gameSquare)
   }
 })() //createGameGrid
+
 //END CREATE UI//
 
 const gamePlay = (() => {
-  const square1 = document.getElementById(1)
-  const square2 = document.getElementById(2)
-  const square3 = document.getElementById(3)
-  const square4 = document.getElementById(4)
-  const square5 = document.getElementById(5)
-  const square6 = document.getElementById(6)
-  const square7 = document.getElementById(7)
-  const square8 = document.getElementById(8)
-  const square9 = document.getElementById(9)
+  const square1 = document.getElementById('a1')
+  const square2 = document.getElementById('a2')
+  const square3 = document.getElementById('a3')
+  const square4 = document.getElementById('a4')
+  const square5 = document.getElementById('a5')
+  const square6 = document.getElementById('a6')
+  const square7 = document.getElementById('a7')
+  const square8 = document.getElementById('a8')
+  const square9 = document.getElementById('a9')
 
   let count = 0
   for (let i = 1; i <= 9; i++) {
-    const gameSpace = document.getElementById(i)
+    const gameSpace = document.getElementById(`a${i}`)
 
     const play = () => {
       const playerTurn = (() => {
@@ -130,7 +126,7 @@ const gamePlay = (() => {
         }
       })() //playerTurn
 
-      const gameOver = (() => { 
+      const gameOver = (() => {
         const lineScore = (squareA, squareB, squareC) => {
           squareA = parseInt(squareA.getAttribute('value'))
           squareB = parseInt(squareB.getAttribute('value'))
@@ -153,24 +149,21 @@ const gamePlay = (() => {
           for (let i = 0; i < lineScores.length; i++) {
             if (lineScores[i].score() == 3 || lineScores[i].score() == 6) {
               if (lineScores[i].score() == 3) {
-                document.getElementById('player1GameOver').textContent = 'W'
-                document.getElementById('player2GameOver').textContent = 'L'
+                document.getElementById('winnerDisplay').textContent = 'Player1 Won'
               } else {
-                document.getElementById('player2GameOver').textContent = 'W'
-                document.getElementById('player1GameOver').textContent = 'L'
+                document.getElementById('winnerDisplay').textContent = 'Player2 Won'
               }
               document.getElementById('section2').style.pointerEvents = 'none'
               document.getElementById('section2').setAttribute('value', 5)
-              //function refresh() { location.reload() }; setTimeout(refresh, 1500)
+              function refresh() { location.reload() }; setTimeout(refresh, 1500)
             }
           }
         })() //winner
         const tieScore = (() => {
           if (square1.textContent != '' && square2.textContent != '' && square3.textContent != '' && square4.textContent != '' && square5.textContent != '' && square6.textContent != '' && square7.textContent != '' && square8.textContent != '' && square9.textContent != '' && document.getElementById('section2').getAttribute('value') != 5) {
-            document.getElementById('player1GameOver').textContent = 'T'
-            document.getElementById('player2GameOver').textContent = 'T'
+            document.getElementById('winnerDisplay').textContent = 'TIE'
             document.getElementById('section2').style.pointerEvents = 'none'
-            //function refresh() { location.reload() }; setTimeout(refresh, 1500)
+            function refresh() { location.reload() }; setTimeout(refresh, 1500)
           }
         })() //tieSCore
       })() //gameOver
@@ -197,3 +190,4 @@ const gamePlay = (() => {
   } //*for loop[gamePlay]
 
 })() //gamePlay
+
