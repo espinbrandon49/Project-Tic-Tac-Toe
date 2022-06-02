@@ -190,4 +190,4 @@ const gamePlay = (() => {
   } //*for loop[gamePlay]
 
 })() //gamePlay
-
+//
