@@ -54,8 +54,9 @@
 }
 
 #player1Marker {
-  text-align: center;
-  vertical-align: center;
+  display: grid;
+  align-content: center;
+  justify-content: center;
   font-family: 'Great Attraction', sans-serif;
   height: 40px;
   width: 40px;
@@ -92,8 +93,9 @@
 }
 
 #player2Marker {
-  text-align: center;
-  vertical-align: center;
+  display: grid;
+  align-content: center;
+  justify-content: center;
   font-family: 'Great Attraction', sans-serif;
   height: 40px;
   width: 40px;
