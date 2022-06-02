@@ -5,104 +5,88 @@
 }
 
 #gameDisplay {
-  height: 500px;
-  width: 500px;
+  height: 880px;
+  width: 380px;
   margin-left: auto;
   margin-right: auto;
-  display: grid;
+  margin-top: 5px;
+  border-style: outset;
+  border: 10px solid #878681;
+  /* background-color: black;*/
   justify-content: center;
-  align-content: center;
-  position: relative;
-  margin-top: 100px;
-  border: 1px solid black;
-  border-radius: 0 0 100px 100px;
 }
 
 #section1 {
-
-  height: 200px;
-  width: 500px;
+  border: 1px solid black;
+  height: 40px;
+  width: 340px;
   display: grid;
   grid-auto-flow: column;
-}
-
-#player1Div,
-#player2Div {
-  border: 1px solid black;
-  display: grid;
-  justify-items: center;
-  align-content: start;
+  margin-left: 20px;
   justify-content: center;
+  align-content: center;
 }
 
 #player1Div {
-  grid-template-areas:
-    'p1 p1 w1'
-    'X X X';
-  border-radius: 0 0 100px 0;
-}
-
-#player2Div {
-  grid-template-areas:
-    'p2 p2 w2'
-    'O O O'
-    'b b b';
-  border-radius: 0 0 0 100px;
-}
-
-#player1Input,
-#player2Input {
-  border-left: 1px solid black;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  height: 20px;
-  text-align: center;
-}
-
-#player1Input {
-  grid-area: p1;
-}
-
-#player2Input {
-  grid-area: p2;
-}
-
-#player1GameOver,
-#player2GameOver {
-  width: 20px;
-  height: 20px;
-  border-left: 1px solid blue;
-}
-
-#player1GameOver {
-  grid-area: w1;
-}
-
-#player2GameOver {
-  grid-area: w2;
-}
-
-#player1Marker,
-#player2Marker {
-  border: 1px solid black;
-  grid-area: X;
-  height: 50px;
-  width: 50px;
   display: grid;
-  align-content: center;
-  justify-content: center;
+  grid-auto-flow: column;
+  border: 1px solid black;
+  width: 180px;
+  height: 40px;
 }
 
 #player1Marker {
-  grid-area: X;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  font-family: 'Londrina Outline', cursive;
+
+  height: 40px;
+  width: 40px;
+}
+
+#player1Input {
+  font-family: 'Londrina Outline', cursive;
+  border: 1px solid black;
+  text-align: right;
+
+}
+
+#player2Div {
+  display: grid;
+  grid-auto-flow: column;
+  border: 1px solid blue;
+  width: 180px;
+  height: 40px;
 }
 
 #player2Marker {
-  grid-area: O;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+
+  height: 40px;
+  width: 40px;
+}
+
+#player2Input {
+  font-family: 'Londrina Outline', cursive;
+  border: 1px solid blue;
+  text-align: left;
 }
 
 button {
-  grid-area: b;
+  background-color: black;
+  border: 10px solid #878681;
+  background-image: url(./power\ \(1\).svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 240px;
+  width: 240px;
+  border-radius: 100%;
+  margin-top: 315px;
+  margin-left: 70px;
+
 }
 
 ::placeholder {
@@ -110,21 +94,84 @@ button {
 }
 
 #section2 {
-  height: 150px;
-  width: 500px;
+  margin-top: 20px;
+  border-top: 5px solid #878681;
+  height: 240px;
+  width: 380px;
   display: grid;
-  grid-template-rows: 50px 50px 50px;
-  grid-template-columns: 50px 50px 50px;
   justify-content: center;
-  align-content: center;
-position: relative;
-top: 64px;
+  grid-template-rows: 80px 80px 80px;
+  grid-template-columns: 80px 80px 80px;
 }
 
 .gameSquare {
-  border: 1px solid black;
-  height: 50px;
-  width: 50px
+  height: 80px;
+  width: 80px;
+  color: #FF3131;
+
+}
+
+#a1 {
+
+  border-left: 1px dotted black;
+  border-right: 1px dotted black;
+}
+
+#a2 {}
+
+#a3 {
+
+  border-left: 1px dotted black;
+  border-right: 1px dotted black;
+}
+
+#a4 {
+
+  border-left: 1px dotted black;
+  border-right: 1px dotted black;
+  position: relative;
+}
+
+#a4:before {
+  content: '';
+  width: 381px;
+  position: absolute;
+  border-top: 2px solid #dbe4eb;
+  right: -230px;
+}
+
+#a5 {}
+
+
+#a6 {
+
+  border-left: 1px dotted black;
+  border-right: 1px dotted black;
+}
+
+
+
+#a7 {
+  border-left: 1px dotted black;
+  border-right: 1px dotted black;
+
+  position: relative;
+}
+
+#a7:after {
+  content: '';
+  width: 381px;
+  position: absolute;
+  border-top: 2px solid #dbe4eb;
+  right: -230px;
+
+}
+
+#a8 {}
+
+#a9 {
+  border-left: 1px dotted black;
+  border-right: 1px dotted black;
 }
 
 /*
