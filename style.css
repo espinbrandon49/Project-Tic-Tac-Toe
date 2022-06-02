@@ -1,3 +1,6 @@
+@import url('http://fonts.cdnfonts.com/css/great-attraction');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -51,9 +54,8 @@
 }
 
 #player1Marker {
-  display: grid;
-  align-content: center;
-  justify-content: center;
+  text-align: center;
+  vertical-align: center;
   font-family: 'Great Attraction', sans-serif;
   height: 40px;
   width: 40px;
@@ -90,9 +92,8 @@
 }
 
 #player2Marker {
-  display: grid;
-  align-content: center;
-  justify-content: center;
+  text-align: center;
+  vertical-align: center;
   font-family: 'Great Attraction', sans-serif;
   height: 40px;
   width: 40px;
@@ -157,10 +158,10 @@ button {
   width: 80px;
   color: #FF3131;
   font-size: 60px;
-  display: grid;
-  align-content: center;
-  justify-content: center;
+  text-align: center;
+  vertical-align: center;
   font-family: 'Space Mono', monospace;
+  cursor: pointer;
 }
 
 #a2,
