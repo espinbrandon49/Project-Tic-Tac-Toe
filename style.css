@@ -57,10 +57,10 @@
   display: grid;
   align-content: center;
   justify-content: center;
-  font-family: 'Great Attraction', sans-serif;
+  font-family: 'Great Attraction', 'Arial Narrow', Arial;
   height: 40px;
   width: 40px;
-  font-size: 25px;
+  font-size: 30px;
   background-color: skyblue;
   color: white;
   border-top: 2px solid skyblue;
@@ -70,8 +70,8 @@
 }
 
 #player1Input {
-  font-family: 'Great Attraction', sans-serif;
-  font-size: 25px;
+  font-family: 'Great Attraction', 'Arial Narrow', Arial;
+  font-size: 30px;
   background-color: skyblue;
   text-align: right;
   height: 40px;
@@ -96,11 +96,11 @@
   display: grid;
   align-content: center;
   justify-content: center;
-  font-family: 'Great Attraction', sans-serif;
+  font-family: 'Great Attraction', 'Arial Narrow', Arial;
   height: 40px;
   width: 40px;
   color: white;
-  font-size: 25px;
+  font-size: 30px;
   border-left: #100c08;
   background-color: #100c08;
   border-style: outset;
@@ -110,10 +110,10 @@
 }
 
 #player2Input {
-  font-family: 'Great Attraction', sans-serif;
+  font-family: 'Great Attraction', 'Arial Narrow', Arial;
   background-color: #100c08;
   text-align: left;
-  font-size: 25px;
+  font-size: 30px;
   height: 40px;
   width: 140px;
   border-top: 2px solid skyblue;
